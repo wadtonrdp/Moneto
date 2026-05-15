@@ -115,7 +115,7 @@ FRONTEND/
 ```bash
 # Clone o repositório
 git clone https://github.com/seu-usuario/moneto.git
-cd moneto/FRONTEND
+cd Moneto/FRONTEND
 
 # Instale as dependências
 npm install
