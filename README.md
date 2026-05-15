@@ -114,7 +114,7 @@ FRONTEND/
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/moneto.git
+git clone https://github.com/seu-usuario/Moneto.git
 cd Moneto/FRONTEND
 
 # Instale as dependências
