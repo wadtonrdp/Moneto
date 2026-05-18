@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  font-family: var(--font-custom);
+  font-weight: bold;
+
+  
+}
+
+:root {
+  --primary: #0F6E56;
+  --primary-hover: #4338CA;
+  --primary-active: #3730A3;
+  --primary-light: #E0E7FF;
+  --primary-dark: #3730A3;
+  --border: #E3E5E9;
+
+  --font-custom: 'SN Pro', sans-serif;
+}
