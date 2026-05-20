@@ -1,4 +1,3 @@
-// components/ui/Button.tsx
 type ButtonProps = {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
   children: React.ReactNode
@@ -7,10 +6,11 @@ type ButtonProps = {
 
 export default function Button({ variant = 'primary', children, onClick }: ButtonProps) {
   const styles = {
-    primary: 'bg-[#0F6E56] text-white hover:bg-[#0D5A45] cursor-pointer',
-    secondary: 'bg-white text-zinc-800 hover:bg-zinc-300 text-[#0F6E56] cursor-pointer',
-    ghost:   'bg-transparent border border-zinc-300 text-zinc-800 hover:bg-zinc-200 cursor-pointer',
-    danger:  'bg-red-600 text-white hover:bg-red-500 cursor-pointer',
+    primary:   'bg-primary text-white hover:bg-primary-dark active:scale-95 cursor-pointer transition-all hover:shadow-md',
+    secondary: 'bg-white text-primary hover:bg-zinc-100 active:scale-95 cursor-pointer transition-all',
+    ghost:     'bg-transparent border border-border-main text-text hover:bg-bg active:scale-95 cursor-pointer transition-all',
+    semi:     'bg-transparent border border-border-main text-text hover:bg-white active:scale-95 cursor-pointer transition-all',
+    danger:    'bg-red-600 text-white hover:bg-red-500 active:scale-95 cursor-pointer transition-all',
   }
 
   return (
