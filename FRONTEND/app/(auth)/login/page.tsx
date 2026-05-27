@@ -2,37 +2,41 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { loginActionLocal } from "./actions"
-import { loginDemo } from "@/lib/auth" // Ajuste o caminho de importação conforme sua estrutura
+import { doLogin } from "@/lib/auth"
 import { ChartPie, TrendingUp, Bitcoin, Smartphone, Zap, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 type Tab = 'login' | 'register' | 'forgot'
 
+const DEMO_EMAIL = 'demo@moneto.app'
+const DEMO_PASSWORD = 'demo123'
+
 export default function Login() {
   const [tab, setTab] = useState<Tab>('login')
-  const router = useRouter()
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
-  // Manipulador central de autenticação
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  function handleLogin(email: string, password: string, isDemo: boolean) {
     setError(null)
-    
-    const formData = new FormData(e.currentTarget)
-    const isValidDemo = loginActionLocal(formData)
 
-    if (isValidDemo) {
-      // Grava no sessionStorage usando a função central
-      loginDemo(
-        formData.get('email') as string, 
-        formData.get('password') as string, 
-        formData.get('demo') === 'true'
-      )
+    const valid =
+      isDemo ||
+      (email === DEMO_EMAIL && password === DEMO_PASSWORD)
+
+    if (valid) {
+      doLogin()
       router.push('/dashboard')
     } else {
-      setError('Credenciais inválidas! Use os dados de demonstração.')
+      setError('Credenciais inválidas! Use demo@moneto.app / demo123')
     }
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    handleLogin(email, password, false)
   }
 
   return (
@@ -67,20 +71,17 @@ export default function Login() {
             </div>
           ))}
 
-          {/* Demo Rápido */}
+          {/* Demo */}
           <div className="mt-10 p-4 bg-white/10 rounded-[12px] border border-white/20">
             <p className="text-[11px] text-white/60 mb-1 font-semibold uppercase tracking-wide">Acesso rápido</p>
             <p className="text-[12px] text-white/80 mb-3">Explore o Moneto sem criar conta.</p>
-            <form onSubmit={handleSubmit}>
-              <input type="hidden" name="demo" value="true" />
-              <button
-                type="submit"
-                className="w-full bg-white text-primary text-[12px] font-bold py-2 px-4 rounded-md flex items-center justify-center gap-2 transition-all hover:bg-white/90 active:scale-95"
-              >
-                <Zap className="w-4 h-4" />
-                Entrar como demo
-              </button>
-            </form>
+            <button
+              onClick={() => handleLogin('', '', true)}
+              className="w-full bg-white text-primary text-[12px] font-bold py-2 px-4 rounded-md flex items-center justify-center gap-2 transition-all hover:bg-white/90 active:scale-95"
+            >
+              <Zap className="w-4 h-4" />
+              Entrar como demo
+            </button>
           </div>
         </div>
       </div>
@@ -95,26 +96,25 @@ export default function Login() {
           </Link>
 
           {error && (
-            <div className="mb-4 p-2 text-[11px] bg-red-50 text-red-500 rounded border border-red-200 text-center font-medium">
+            <div className="mb-4 p-2 text-[11px] bg-red-50 text-red-500 rounded border border-red-200 text-center font-semibold">
               {error}
             </div>
           )}
 
-          {/* ===== LOGIN FORM ===== */}
+          {/* LOGIN */}
           {tab === 'login' && (
             <div>
               <h2 className="text-2xl font-bold mb-1">Entre na sua conta</h2>
               <p className="text-[12px] text-muted mb-6">Acesse seu painel financeiro pessoal.</p>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <input type="hidden" name="demo" value="false" />
                 <div className="group">
                   <label className="block text-[12px] font-black text-text mb-1 transition-colors group-focus-within:text-primary">
                     E-mail
                   </label>
-                  <input 
+                  <input
                     type="email"
-                    name="email" 
-                    placeholder="seu@email.com"
+                    name="email"
+                    placeholder="demo@moneto.app"
                     className="text-[12px] block w-full px-3 py-2 border border-border-main rounded-md transition-all focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-primary/50"
                     required
                   />
@@ -123,10 +123,10 @@ export default function Login() {
                   <label className="block text-[12px] font-black text-text mb-1 transition-colors group-focus-within:text-primary">
                     Senha
                   </label>
-                  <input 
+                  <input
                     type="password"
-                    name="password" 
-                    placeholder="••••••••"
+                    name="password"
+                    placeholder="demo123"
                     className="text-[12px] block w-full px-3 py-2 border border-border-main rounded-md transition-all focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-primary/50"
                     required
                   />
@@ -154,7 +154,7 @@ export default function Login() {
             </div>
           )}
 
-          {/* ===== CADASTRO ===== */}
+          {/* CADASTRO */}
           {tab === 'register' && (
             <div>
               <button
@@ -166,7 +166,18 @@ export default function Login() {
               <h2 className="text-2xl font-bold mb-1">Criar conta</h2>
               <p className="text-[12px] text-muted mb-6">Comece a controlar suas finanças hoje.</p>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <input type="hidden" name="demo" value="false" />
+                <div className="group">
+                  <label className="block text-[12px] font-black text-text mb-1 transition-colors group-focus-within:text-primary">
+                    Nome
+                  </label>
+                  <input
+                    type="text"
+                    name="nome"
+                    placeholder="Seu nome"
+                    className="text-[12px] block w-full px-3 py-2 border border-border-main rounded-md transition-all focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-primary/50"
+                    required
+                  />
+                </div>
                 <div className="group">
                   <label className="block text-[12px] font-black text-text mb-1 transition-colors group-focus-within:text-primary">
                     E-mail
@@ -186,7 +197,7 @@ export default function Login() {
                   <input
                     type="password"
                     name="password"
-                    placeholder="••••••••"
+                    placeholder="Mínimo 8 caracteres"
                     className="text-[12px] block w-full px-3 py-2 border border-border-main rounded-md transition-all focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary hover:border-primary/50"
                     required
                   />
@@ -195,13 +206,13 @@ export default function Login() {
                   type="submit"
                   className="w-full bg-primary text-white py-2 px-4 rounded-md transition-all hover:bg-primary-dark hover:shadow-md active:scale-95"
                 >
-                  Criar Conta e Entrar
+                  Criar conta e entrar
                 </button>
               </form>
             </div>
           )}
 
-          {/* ===== RECUPERAR SENHA ===== */}
+          {/* RECUPERAR SENHA */}
           {tab === 'forgot' && (
             <div>
               <button
@@ -214,7 +225,13 @@ export default function Login() {
               <p className="text-[12px] text-muted mb-6">
                 Digite seu e-mail e enviaremos um link para redefinir sua senha.
               </p>
-              <form onSubmit={(e) => { e.preventDefault(); alert('Link enviado com sucesso (Simulação Demo)!') }} className="space-y-4">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  alert('Link enviado! (Simulação Demo)')
+                }}
+                className="space-y-4"
+              >
                 <div className="group">
                   <label className="block text-[12px] font-black text-text mb-1 transition-colors group-focus-within:text-primary">
                     E-mail

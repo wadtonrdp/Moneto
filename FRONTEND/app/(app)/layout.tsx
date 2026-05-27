@@ -2,21 +2,23 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { checkAuth } from '@/lib/auth' // Certifique-se de alinhar esse caminho com a sua pasta lib
+import { checkAuth, doLogin } from '@/lib/auth'
+import Sidebar from '@/components/layout/Sidebar'
+import BottomNav from '@/components/layout/BottomNav'
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const isAuthenticated = checkAuth()
+    const params = new URLSearchParams(window.location.search)
 
-    if (!isAuthenticated) {
-      // Se deu F5 ou fechou a aba, o sessionStorage sumiu. Expulsa pro login!
+    if (params.get('session') === 'demo') {
+      doLogin()
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+
+    if (!checkAuth()) {
       router.replace('/login')
     } else {
       setLoading(false)
@@ -24,14 +26,20 @@ export default function DashboardLayout({
   }, [router])
 
   if (loading) {
-    // Uma tela de carregamento elegante e rápida enquanto verifica o sessionStorage
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-zinc-950 text-white font-sans text-sm tracking-wide">
-        <p className="animate-pulse">Carregando painel demo...</p>
+      <div className="flex h-screen w-screen items-center justify-center bg-white">
+        <p className="animate-pulse text-sm text-muted">Carregando painel...</p>
       </div>
     )
   }
 
-  // Se estiver logado, renderiza o dashboard normalmente por cima do RootLayout global
-  return <>{children}</>
+  return (
+    <div className="flex min-h-screen bg-bg">
+      <Sidebar />
+      <div className="flex flex-col flex-1 min-w-0">
+        {children}
+      </div>
+      <BottomNav />
+    </div>
+  )
 }
