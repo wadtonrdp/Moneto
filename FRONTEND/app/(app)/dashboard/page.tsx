@@ -87,7 +87,7 @@ export default function Home() {
                 className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
                   selectedPeriod === option.value
                     ? 'bg-white text-primary shadow-sm'
-                    : 'text-muted hover:text-text'
+                    : 'text-muted hover:text-text cursor-pointer'
                 }`}
               >
                 {option.label}
@@ -96,7 +96,7 @@ export default function Home() {
           </div>
 
           {/* Sino com badge */}
-          <button className="relative border border-border-main p-2 rounded-md hover:bg-bg transition-colors">
+          <button className="relative border border-border-main p-2 rounded-md hover:bg-bg transition-colors cursor-pointer">
             <Bell className="h-4 w-4 text-muted" />
             {notificacoes > 0 && (
               <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-[9px] font-black rounded-full flex items-center justify-center">

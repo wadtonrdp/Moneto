@@ -1,5 +1,5 @@
 type ButtonProps = {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'semi'
   children: React.ReactNode
   onClick?: () => void
 }
@@ -9,7 +9,7 @@ export default function Button({ variant = 'primary', children, onClick }: Butto
     primary:   'bg-primary text-white hover:bg-primary-dark active:scale-95 cursor-pointer transition-all hover:shadow-md',
     secondary: 'bg-white text-primary hover:bg-zinc-100 active:scale-95 cursor-pointer transition-all',
     ghost:     'bg-transparent border border-border-main text-text hover:bg-bg active:scale-95 cursor-pointer transition-all',
-    semi:     'bg-transparent border border-border-main text-text hover:bg-white active:scale-95 cursor-pointer transition-all',
+    semi:      'bg-transparent border border-border-main text-text hover:bg-white active:scale-95 cursor-pointer transition-all',
     danger:    'bg-red-600 text-white hover:bg-red-500 active:scale-95 cursor-pointer transition-all',
   }
 
