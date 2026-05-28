@@ -14,7 +14,7 @@
 
 | Welcome | Login | Dashboard |
 |---------|-------|-----------|
-| ![Welcome](public/screenshots/welcome.png) | Autenticação com acesso demo | Visão completa do portfólio |
+| ![Welcome](/FRONTEND/public/screenshots/welcome.png) | Autenticação com acesso demo | Visão completa do portfólio |
 
 | Carteira | Transações | Relatórios |
 |----------|------------|------------|
