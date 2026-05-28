@@ -54,12 +54,11 @@
 
 ```
 FRONTEND/
-├── middleware.ts                  # Gerencia sessão e proteção de rotas
-│
 ├── app/
 │   ├── layout.tsx                 # Layout raiz (fontes, metadata)
 │   ├── globals.css                # Variáveis CSS e reset global
 │   ├── page.tsx                   # Welcome page "/"
+│   ├── favicon.ico                #Favicon usado em todas as pages
 │   │
 │   ├── (auth)/
 │   │   └── login/
@@ -70,35 +69,30 @@ FRONTEND/
 │       ├── dashboard/page.tsx
 │       ├── carteira/page.tsx
 │       ├── transacoes/page.tsx
-│       └── relatorios/page.tsx
+│       ├── relatorios/page.tsx
+│       ├── notificacoes/page.tsx
+│       └── configuracoes/page.tsx
 │
 ├── components/
 │   ├── layout/
 │   │   ├── Sidebar.tsx            # Navegação lateral (desktop)
 │   │   ├── BottomNav.tsx          # Navegação inferior (mobile)
 │   │   └── Header.tsx             # Cabeçalho com título e controles
-│   ├── dashboard/                 # KpiCard, LineChart, DonutChart, TxList, TopAssets
-│   ├── carteira/                  # CartHero, AssetRow, AllocDonut
-│   ├── transacoes/                # FilterBar, TxTable, TxSummaryCards
-│   ├── relatorios/                # BarChart, CatDonut, ProgressBars
-│   ├── auth/
-│   │   └── LoginForm.tsx          # Formulário com botão de acesso demo
+│   ├── dashboard/                 # PreviewChart, PreviewDonut
 │   └── ui/
-│       ├── Badge.tsx
-│       ├── Card.tsx
+│       ├── Avatar.tsx
+│       ├── Logo.tsx
 │       └── Button.tsx
 │
 ├── lib/
-│   ├── coingecko.ts               # Funções de fetch da CoinGecko API
-│   ├── frankfurter.ts             # Funções de fetch de câmbio
+│   ├── demo-db.ts               # Acesso a demo do site
+│   ├── pdf-export.ts             # Arquivo com informações em formato de pdf que pode ser exportardo
+│   ├── session.ts                # Dados Iniciais das sessões
+│   ├── supabase.ts                #Configuração base do supabase
 │   └── auth.ts                    # Lógica de login mockado e cookie de sessão
 │
-├── hooks/
-│   ├── useCrypto.ts               # Hook para dados de cripto em tempo real
-│   └── useRates.ts                # Hook para taxas de câmbio
-│
-└── types/
-    └── finance.ts                 # Interfaces: Asset, Transaction, KPI...
+└── hooks/
+    └── useDemoData.ts                # Hook para configurações das funcionalidades dá demo
 ```
 
 ---
