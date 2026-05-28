@@ -14,11 +14,15 @@
 
 | Welcome | Login | Dashboard |
 |---------|-------|-----------|
-| ![Welcome](/FRONTEND/public/screenshots/welcome.png) | Autenticação com acesso demo | Visão completa do portfólio |
+| ![Welcome](/FRONTEND/public/screenshots/welcome.png) | ![Login](/FRONTEND/public/screenshots/login.png) | ![Dashboard](/FRONTEND/public/screenshots/dashboard.png) |
 
 | Carteira | Transações | Relatórios |
 |----------|------------|------------|
-| Ativos com sparklines em tempo real | Histórico com filtros e busca | Gráficos de análise mensal |
+| ![Carteira](/FRONTEND/public/screenshots/carteira.png) | ![Transações](/FRONTEND/public/screenshots/transacoes.png) | ![Relatórios](/FRONTEND/public/screenshots/relatorios.png) |
+
+| Notificações | Configurações |
+|--------------|---------------|
+| ![Notificações](/FRONTEND/public/screenshots/notificacoes.png) | ![Configurações](/FRONTEND/public/screenshots/configuracoes.png) |
 
 ---
 
@@ -225,9 +229,9 @@ Ou conecte o repositório diretamente pelo [painel da Vercel](https://vercel.com
 
 Estudante de Análise e Desenvolvimento de Sistemas — FatecSenai Cuiabá, MT.
 
-[![Portfolio](https://img.shields.io/badge/Portfólio-ver-0F6E56?style=flat-square)](https://seu-portfolio.vercel.app)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-conectar-0A66C2?style=flat-square&logo=linkedin)](https://linkedin.com/in/seu-usuario)
-[![GitHub](https://img.shields.io/badge/GitHub-seguir-black?style=flat-square&logo=github)](https://github.com/seu-usuario)
+[![Portfolio](https://img.shields.io/badge/Portfólio-ver-0F6E56?style=flat-square)](https://wadton-dev.vercel.app)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-conectar-0A66C2?style=flat-square&logo=linkedin)](www.linkedin.com/in/wadtonrdp)
+[![GitHub](https://img.shields.io/badge/GitHub-seguir-black?style=flat-square&logo=github)](https://github.com/wadtonrdp)
 
 ---
 
