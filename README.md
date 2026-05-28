@@ -14,15 +14,15 @@
 
 | Welcome | Login | Dashboard |
 |---------|-------|-----------|
-| ![Welcome](/FRONTEND/public/screenshots/welcome.png) | ![Login](/FRONTEND/public/screenshots/login.png) | ![Dashboard](/FRONTEND/public/screenshots/dashboard.png) |
+| <img src="FRONTEND/public/screenshots/welcome.png" width="400"> | <img src="FRONTEND/public/screenshots/login.png" width="400"> | <img src="FRONTEND/public/screenshots/dashboard.png" width="400"> |
 
 | Carteira | Transações | Relatórios |
 |----------|------------|------------|
-| ![Carteira](/FRONTEND/public/screenshots/carteira.png) | ![Transações](/FRONTEND/public/screenshots/transacoes.png) | ![Relatórios](/FRONTEND/public/screenshots/relatorios.png) |
+| <img src="FRONTEND/public/screenshots/carteira.png" width="400"> | <img src="FRONTEND/public/screenshots/transacoes.png" width="400"> | <img src="FRONTEND/public/screenshots/relatorios.png" width="400"> |
 
 | Notificações | Configurações |
 |--------------|---------------|
-| ![Notificações](/FRONTEND/public/screenshots/notificacoes.png) | ![Configurações](/FRONTEND/public/screenshots/configuracoes.png) |
+| <img src="FRONTEND/public/screenshots/notificacoes.png" width="400"> | <img src="FRONTEND/public/screenshots/configuracoes.png" width="400"> |
 
 ---
 
