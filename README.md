@@ -230,7 +230,7 @@ Ou conecte o repositório diretamente pelo [painel da Vercel](https://vercel.com
 Estudante de Análise e Desenvolvimento de Sistemas — FatecSenai Cuiabá, MT.
 
 [![Portfolio](https://img.shields.io/badge/Portfólio-ver-0F6E56?style=flat-square)](https://wadton-dev.vercel.app)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-conectar-0A66C2?style=flat-square&logo=linkedin)](www.linkedin.com/in/wadtonrdp)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-conectar-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/wadtonrdp)
 [![GitHub](https://img.shields.io/badge/GitHub-seguir-black?style=flat-square&logo=github)](https://github.com/wadtonrdp)
 
 ---
