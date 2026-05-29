@@ -1,0 +1,25 @@
+import { NextRequest, NextResponse } from 'next/server'
+
+export async function GET(req: NextRequest) {
+  const ids = req.nextUrl.searchParams.get('ids') ?? ''
+
+  if (!ids) {
+    return NextResponse.json({ error: 'ids obrigatório' }, { status: 400 })
+  }
+
+  try {
+    const url = `https://api.coingecko.com/api/v3/simple/price` +
+                `?ids=${ids}&vs_currencies=brl&include_24hr_change=true`
+
+    const res = await fetch(url, {
+      next: { revalidate: 60 }, // cache 1 min no servidor
+    })
+
+    if (!res.ok) throw new Error(`CoinGecko ${res.status}`)
+
+    const data = await res.json()
+    return NextResponse.json(data)
+  } catch (err) {
+    return NextResponse.json({ error: 'Falha ao buscar preços' }, { status: 502 })
+  }
+}
