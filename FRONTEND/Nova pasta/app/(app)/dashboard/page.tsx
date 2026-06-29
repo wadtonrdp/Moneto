@@ -140,10 +140,10 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className='flex flex-col h-full overflow-hidden'>
+    <div className='flex min-h-screen flex-col'>
 
       {/* HEADER */}
-      <header className='border-border-main border-b bg-white flex h-16 items-center justify-between px-4 sm:px-6 flex-shrink-0 gap-3'>
+      <header className='border-border-main border-b bg-white flex h-16 items-center justify-between px-6 flex-shrink-0 gap-3'>
         <div className='flex-shrink-0'>
           <h1 className='text-base font-bold'>Dashboard</h1>
           <p className='text-xs text-muted'>{loading ? 'Carregando…' : `${periodLabel[selectedPeriod]} · ${dataBR}`}</p>
@@ -251,7 +251,7 @@ export default function Dashboard() {
       </header>
 
       {/* CONTEÚDO */}
-      <main className='flex-1 overflow-y-auto bg-bg p-4 sm:p-6 pb-20 lg:pb-6'>
+      <main className='flex-grow bg-bg p-6'>
         {loading ? (
           <div className='flex items-center justify-center h-64 text-muted gap-2'>
             <Loader2 className='w-6 h-6 animate-spin text-primary' />

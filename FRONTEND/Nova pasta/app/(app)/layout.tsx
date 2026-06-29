@@ -12,10 +12,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
+
     if (params.get('session') === 'demo') {
       doLogin()
       window.history.replaceState({}, '', window.location.pathname)
     }
+
     if (!checkAuth()) {
       router.replace('/login')
     } else {
@@ -32,12 +34,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    // h-screen + overflow-hidden: a viewport nunca excede a tela.
-    // Cada página controla seu próprio scroll internamente.
-    <div className="flex h-screen overflow-hidden bg-bg">
+    <div className="flex min-h-screen bg-bg">
       <Sidebar />
-      {/* flex-1 + overflow-hidden: o conteúdo ocupa o restante e não vaza */}
-      <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
+      <div className="flex flex-col flex-1 min-w-0">
         {children}
       </div>
       <BottomNav />

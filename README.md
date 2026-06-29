@@ -29,13 +29,13 @@
 ## ✨ Funcionalidades
 
 - **Dashboard** com KPIs, gráfico de evolução do patrimônio e distribuição de ativos
-- **Carteira** com lista de ativos, sparklines e alocação em donut chart
+- **Carteira** com lista de ativos e alocação em donut chart
 - **Transações** com filtros por tipo, categoria, período e busca
 - **Relatórios** com comparativo mensal de receita vs despesas e gastos por categoria
+- **Notificações** com agrupamento por data e marcação de lidas
 - **Dados em tempo real** via CoinGecko API (cripto) e Frankfurter API (câmbio)
 - **Autenticação mockada** com acesso rápido via conta demo
 - **Responsivo** — sidebar no desktop, bottom navigation no mobile
-- **Sessão persistida** via cookie gerenciado pelo middleware do Next.js
 
 ---
 
@@ -46,8 +46,9 @@
 | [Next.js 15](https://nextjs.org/) | Framework principal (App Router) |
 | [React 19](https://react.dev/) | Interface e componentes |
 | [TypeScript](https://www.typescriptlang.org/) | Tipagem estática |
-| [Tailwind CSS](https://tailwindcss.com/) | Estilização responsiva |
-| [Chart.js](https://www.chartjs.org/) | Gráficos e sparklines |
+| [Tailwind CSS v4](https://tailwindcss.com/) | Estilização responsiva |
+| [Recharts](https://recharts.org/) | Gráficos de área, barra e donut |
+| [Lucide React](https://lucide.dev/) | Ícones |
 | [CoinGecko API](https://www.coingecko.com/api) | Preços de criptomoedas (free, sem key) |
 | [Frankfurter API](https://www.frankfurter.app/) | Taxas de câmbio (free, sem key) |
 | [Vercel](https://vercel.com/) | Deploy e hospedagem |
@@ -57,19 +58,22 @@
 ## 📁 Estrutura do Projeto
 
 ```
-FRONTEND/
 ├── app/
 │   ├── layout.tsx                 # Layout raiz (fontes, metadata)
-│   ├── globals.css                # Variáveis CSS e reset global
+│   ├── globals.css                # Variáveis CSS e tokens do design system
 │   ├── page.tsx                   # Welcome page "/"
-│   ├── favicon.ico                #Favicon usado em todas as pages
+│   ├── favicon.ico
+│   │
+│   ├── api/
+│   │   ├── cripto/route.ts        # Proxy → CoinGecko (evita CORS)
+│   │   └── cambio/route.ts        # Proxy → Frankfurter (evita CORS)
 │   │
 │   ├── (auth)/
 │   │   └── login/
 │   │       └── page.tsx           # Tela de login
 │   │
 │   └── (app)/
-│       ├── layout.tsx             # Layout com Sidebar + BottomNav + Header
+│       ├── layout.tsx             # Layout com Sidebar + BottomNav + verificação de auth
 │       ├── dashboard/page.tsx
 │       ├── carteira/page.tsx
 │       ├── transacoes/page.tsx
@@ -79,24 +83,27 @@ FRONTEND/
 │
 ├── components/
 │   ├── layout/
-│   │   ├── Sidebar.tsx            # Navegação lateral (desktop)
-│   │   ├── BottomNav.tsx          # Navegação inferior (mobile)
-│   │   └── Header.tsx             # Cabeçalho com título e controles
-│   ├── dashboard/                 # PreviewChart, PreviewDonut
+│   │   ├── Sidebar.tsx            # Navegação lateral (desktop ≥ 1024px)
+│   │   ├── BottomNav.tsx          # Navegação inferior (mobile < 1024px)
+│   │   └── Header.tsx             # Cabeçalho reutilizável
+│   ├── dashboard/
+│   │   ├── PreviewChart.tsx       # Mini gráfico de área
+│   │   └── PreviewDonut.tsx       # Mini donut de distribuição
 │   └── ui/
 │       ├── Avatar.tsx
 │       ├── Logo.tsx
 │       └── Button.tsx
 │
 ├── lib/
-│   ├── demo-db.ts               # Acesso a demo do site
-│   ├── pdf-export.ts             # Arquivo com informações em formato de pdf que pode ser exportardo
-│   ├── session.ts                # Dados Iniciais das sessões
-│   ├── supabase.ts                #Configuração base do supabase
-│   └── auth.ts                    # Lógica de login mockado e cookie de sessão
+│   ├── demo-db.ts                 # Tipos, constantes de categorias e cores de ativos
+│   ├── pdf-export.ts              # Geração de PDF via impressão do navegador
+│   ├── session.ts                 # Seed de dados demo no Supabase por sessão
+│   ├── supabase.ts                # Configuração do client Supabase
+│   └── auth.ts                    # Login mockado com cookie de sessão
 │
 └── hooks/
-    └── useDemoData.ts                # Hook para configurações das funcionalidades dá demo
+    ├── useDemoData.ts             # Dados estáticos de exemplo + CRUD local em memória
+    └── useLivePrices.ts           # Preços ao vivo de cripto e câmbio via API proxy
 ```
 
 ---
@@ -112,7 +119,7 @@ FRONTEND/
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/Moneto.git
+git clone https://github.com/wadtonrdp/Moneto.git
 cd Moneto/FRONTEND
 
 # Instale as dependências
@@ -141,6 +148,8 @@ Senha:  demo123
 
 ### CoinGecko (Cripto)
 
+Acessada via proxy interno em `/api/cripto` para evitar erros de CORS no browser.
+
 ```
 GET https://api.coingecko.com/api/v3/simple/price
   ?ids=bitcoin,ethereum
@@ -151,6 +160,8 @@ GET https://api.coingecko.com/api/v3/simple/price
 Sem necessidade de API key. Limite de 30 req/min no plano gratuito.
 
 ### Frankfurter (Câmbio)
+
+Acessada via proxy interno em `/api/cambio`.
 
 ```
 GET https://api.frankfurter.app/latest
@@ -166,8 +177,8 @@ Sem necessidade de API key. Atualizado diariamente com dados do BCE.
 
 | Breakpoint | Layout |
 |---|---|
-| `< 1024px` (mobile) | Bottom navigation + cards empilhados |
-| `≥ 1024px` (desktop) | Sidebar lateral + grid de 2-4 colunas |
+| `< 1024px` (mobile) | Bottom navigation com 6 itens + cards empilhados |
+| `≥ 1024px` (desktop) | Sidebar lateral + grid de 2–4 colunas |
 
 A troca é feita com as classes do Tailwind:
 
@@ -191,10 +202,10 @@ A troca é feita com as classes do Tailwind:
 | `/carteira` | Ativos e alocação | Autenticado |
 | `/transacoes` | Histórico de transações | Autenticado |
 | `/relatorios` | Análise financeira mensal | Autenticado |
+| `/notificacoes` | Histórico de alertas por data | Autenticado |
+| `/configuracoes` | Perfil e opções da conta demo | Autenticado |
 
-O `middleware.ts` redireciona automaticamente:
-- Usuário logado tentando acessar `/` ou `/login` → `/dashboard`
-- Usuário não logado tentando acessar rotas internas → `/login`
+A verificação de autenticação é feita no `app/(app)/layout.tsx`, que redireciona para `/login` caso não haja sessão ativa.
 
 ---
 
@@ -227,7 +238,7 @@ Ou conecte o repositório diretamente pelo [painel da Vercel](https://vercel.com
 
 **Wadton Alves**
 
-Estudante de Análise e Desenvolvimento de Sistemas — FatecSenai Cuiabá, MT.
+Estudante de Análise e Desenvolvimento de Sistemas — UniSenai Cuiabá, MT.
 
 [![Portfolio](https://img.shields.io/badge/Portfólio-ver-0F6E56?style=flat-square)](https://wadton-dev.vercel.app)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-conectar-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/wadtonrdp)

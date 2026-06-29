@@ -217,10 +217,10 @@ export default function Transacoes() {
   }
 
   return (
-    <div className='flex flex-col h-full overflow-hidden'>
+    <div className='flex min-h-screen flex-col'>
 
       {/* HEADER */}
-      <header className='border-border-main border-b bg-white flex h-16 items-center justify-between px-4 sm:px-6 flex-shrink-0'>
+      <header className='border-border-main border-b bg-white flex h-16 items-center justify-between px-6 flex-shrink-0'>
         <div>
           <h1 className='text-base font-bold'>Transações</h1>
           <p className='text-xs text-muted'>{transacoesFiltradas.length} transações · {dataBR}</p>
@@ -238,7 +238,7 @@ export default function Transacoes() {
         </div>
       </header>
 
-      <main className='flex-1 overflow-y-auto bg-bg p-4 sm:p-6 pb-20 lg:pb-6'>
+      <main className='flex-grow bg-bg p-6'>
 
         {/* CARDS RESUMO */}
         <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mb-6'>

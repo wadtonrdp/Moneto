@@ -130,10 +130,10 @@ export default function Relatorios() {
   const options = Object.entries(PERIOD_LABELS) as [PeriodKey, string][]
 
   return (
-    <div className='flex flex-col h-full overflow-hidden'>
+    <div className='flex min-h-screen flex-col'>
 
       {/* HEADER */}
-      <header className='border-border-main border-b bg-white flex h-16 items-center justify-between px-4 sm:px-6 flex-shrink-0'>
+      <header className='border-border-main border-b bg-white flex h-16 items-center justify-between px-6 flex-shrink-0'>
         <div>
           <h1 className='text-base font-bold'>Relatórios</h1>
           <p className='text-xs text-muted'>Análise financeira · {dataBR}</p>
@@ -155,7 +155,7 @@ export default function Relatorios() {
         </div>
       </header>
 
-      <main className='flex-1 overflow-y-auto bg-bg p-4 sm:p-6 pb-20 lg:pb-6'>
+      <main className='flex-1 bg-bg p-6'>
 
         {loading ? (
           <div className='flex items-center justify-center h-64 text-muted gap-2'>
