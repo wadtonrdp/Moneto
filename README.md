@@ -236,7 +236,7 @@ Ou conecte o repositório diretamente pelo [painel da Vercel](https://vercel.com
 
 ## 👨‍💻 Autor
 
-**Wadton Alves**
+**Wadton Rodrigues De Paula**
 
 Estudante de Análise e Desenvolvimento de Sistemas — UniSenai Cuiabá, MT.
 
