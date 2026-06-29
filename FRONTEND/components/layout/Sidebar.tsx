@@ -96,10 +96,10 @@ export default function Sidebar() {
       <div className="p-2 border-t border-border-main">
         <div className="flex items-center gap-3 px-3 py-2 rounded-[8px] mb-1">
           <div className="w-7 h-7 rounded-full bg-primary-light flex items-center justify-center text-[10px] font-black text-primary flex-shrink-0">
-            WA
+            GB
           </div>
           <div className="flex flex-col min-w-0">
-            <p className="text-[12px] font-black text-text truncate">Wadton</p>
+            <p className="text-[12px] font-black text-text truncate">Gabriel</p>
             <p className="text-[10px] text-muted">Conta Demo</p>
           </div>
         </div>
